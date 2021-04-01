@@ -1,0 +1,12 @@
+# NODE
+
+node_modules
+package-lock.json
+
+# VSCODE
+
+.vscode
+
+# OS
+
+.DS_Store
