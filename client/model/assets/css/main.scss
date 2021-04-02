@@ -1,0 +1,312 @@
+// FONTS
+@import url('http://fonts.cdnfonts.com/css/inter');
+
+$font: 'Inter', sans-serif;
+// COLORS
+
+$primary: #6200EE;
+$primary-2: #3700B3;
+$secondary: #03DAC6;
+$secondary-2: #018786;
+
+$background: #FFFFFF;
+$surface: #FFFFFF;
+$error: #B00020;
+
+$on-primary: #FFFFFF;
+$on-secondary: #000000;
+$on-background: #000000;
+$on-surface: #000000;
+$on-error: #FFFFFF;
+
+// MIXINS
+
+@mixin sm {
+    @media screen and (min-width: 600px) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media screen and (min-width: 800px) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media screen and (min-width: 1050px) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media screen and (min-width: 1250px) {
+        @content;
+    }
+}
+
+// RESET
+
+* {
+
+  padding: 0;
+  margin: 0;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+
+  *::-webkit-scrollbar {
+      width: 0;
+  }
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font;
+  height: 100vh;
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+// GENERAL
+
+body {
+    display: grid;
+
+
+    @include sm {
+        grid-template-columns: 30% 1fr;
+    }
+
+    @include md {
+        grid-template-columns: 20% 1fr;
+    }
+
+
+}
+
+// SPECIFIC
+
+#not-supported {
+
+    height: 100vh;
+    width: 100%;
+    
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-direction: column;
+    
+    padding: 2em;
+
+    .row {
+
+        width: 100%;
+        height: 50%;
+
+        display: flex;
+
+        &--upper {
+
+            align-items: center;
+            justify-content: center;
+            
+            h1 {
+                font-size: 3em;
+                word-wrap: break-word;
+                text-align: center;
+            }
+
+        }
+
+        &--lower {
+
+            align-items: flex-end;
+            justify-content: center;
+
+            ul {
+
+                display: flex;
+
+                li {
+                    margin: 0 10px;
+                    padding: 8px 16px;
+                    background-color: $on-background;
+                    color: $background;
+                    border-radius: 4px;
+                }
+
+            }
+
+        }
+
+    }
+
+    @include sm {
+        display: none;
+    }
+
+}
+
+#controls {
+
+    display: none;
+    flex-direction: column;
+    border-right: 2px solid $primary;
+    background-color: $primary;
+    color: $on-primary;
+
+    .row {
+
+        display: flex;
+
+        &--upper {
+
+            padding-top: 10px;
+            padding-left: 15px;
+            padding-right: 5px;
+            justify-items: flex-start;
+            align-items: center;
+            margin-bottom: 25px;
+
+            .logo {
+
+                display: flex;
+                align-items: center;
+                justify-items: flex-start;
+                width: 100%;
+
+                img {
+                    width: 30px;
+                    height: auto;
+                    margin-right: 15px;
+                    border-radius: 4px;
+                }
+
+                h2 {
+                    font-size: 1em;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-weight: 400;
+                }
+
+            }
+
+        }
+
+        &--lower {
+
+            justify-content: flex-start;
+            flex-direction: column;
+            height: 100%;
+
+            ul.controls {
+
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                li {
+
+                    margin: 0 15px;
+                    margin-bottom: 15px;
+                    padding: 10px;
+                    background-color: $primary;
+                    border-radius: 4px;
+                    
+                    background: rgba( 255, 255, 255, 0.25 );
+                    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+                    backdrop-filter: blur( 4px );
+                    -webkit-backdrop-filter: blur( 4px );
+                    border-radius: 10px;
+                    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+                    a {
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        padding-left: 15px;
+                        padding-right: 5px;
+
+                        .icon {
+                            width: 20px;
+                            height: auto;
+                            margin-right: 15px;
+                        }
+
+                        span {
+                            font-size: 12px;
+                        }
+
+                    }
+
+                }
+
+            }
+
+            .info {
+
+                margin-top: auto;
+
+                ul {
+
+                    display: flex;
+                    padding: 15px;
+                    align-items: center;
+                    justify-content: center;
+
+                    li {
+
+                        margin: 0 15px;
+
+                        &:first-child{
+                            margin-left: 0;
+                        }
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        a {
+                            font-size: 12px;
+                            text-decoration: underline;
+                            color: $secondary;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    @include sm {
+        display: flex;
+    }
+
+}
+
+#page {
+
+    display: none;
+
+}
