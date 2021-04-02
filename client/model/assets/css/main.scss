@@ -308,5 +308,148 @@ body {
 #page {
 
     display: none;
+    grid-template-rows: 10% 1fr;
+    
+    width: 100%;
+
+    background-color: $background;
+
+    .row {
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        &--upper {
+
+            // margin-top: 15px;
+
+            .column {
+
+                display: flex;
+                align-items: center;
+                width: 50%;
+                padding: 0 15px;
+
+                &--left {
+                    
+                }
+
+                &--right {
+
+                    justify-content: flex-end;
+                    
+                    ul {
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+
+                        li {
+
+                            margin-right: 15px;
+                            font-size: 14px;
+                            padding: 8px 16px;
+                            background-color: $primary-2;
+                            border-radius: 4px;
+                            color: $secondary;
+
+                            &:last-child {
+                                margin-right: 0;
+                            }
+
+                            .icon {
+                                margin-right: 5px;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        &--lower {
+
+            align-items: flex-start;
+
+            .row {
+
+                display: flex;
+
+                &--upper {
+
+                }
+
+                &--lower {
+
+                    display: flex;
+                    width: 100%;
+                    margin-top: auto;
+                    margin-bottom: 15px;
+
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 10px 15px;
+
+                    margin-left: 15px;
+                    margin-right: 15px;
+
+                    border-radius: 8px;
+                    box-shadow: 0 0 15px rgba($color: #000000, $alpha: .1);
+
+                    border: 2px solid $primary;
+
+                    .column {
+
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 12px;
+
+                        &--left {
+
+                            ul {
+
+                                display: flex;
+
+                                li {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: flex-start;
+                                    margin-right: 25px;
+                                    text-transform: uppercase;
+                                }
+                                
+                                img {
+                                    width: 20px;
+                                    height: auto;
+                                    border-radius: 4px;
+                                    margin-right: 10px;
+                                }
+
+                            }
+
+                        }
+
+                        &--right {
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    @include sm {
+        display: grid;
+    }
 
 }
