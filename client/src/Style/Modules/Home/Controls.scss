@@ -1,0 +1,143 @@
+@import "../../globals.scss";
+
+#controls {
+
+    display: none;
+    flex-direction: column;
+    border-right: 2px solid $primary;
+    background-color: $primary;
+    color: $on-primary;
+    
+    .row {
+
+        display: flex;
+
+        &--upper {
+
+            padding-top: 10px;
+            padding-left: 15px;
+            padding-right: 5px;
+            justify-items: flex-start;
+            align-items: center;
+            margin-bottom: 25px;
+
+            .logo {
+
+                display: flex;
+                align-items: center;
+                justify-items: flex-start;
+                width: 100%;
+
+                img {
+                    width: 30px;
+                    height: auto;
+                    margin-right: 15px;
+                    border-radius: 4px;
+                }
+
+                h2 {
+                    font-size: 1em;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-weight: 400;
+                }
+
+            }
+
+        }
+
+        &--lower {
+
+            justify-content: flex-start;
+            flex-direction: column;
+            height: 100%;
+
+            ul.controls {
+
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                li {
+
+                    margin: 0 15px;
+                    margin-bottom: 15px;
+                    padding: 10px;
+                    background-color: $primary;
+                    border-radius: 4px;
+                    
+                    background: rgba( 255, 255, 255, 0.25 );
+                    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+                    backdrop-filter: blur( 4px );
+                    -webkit-backdrop-filter: blur( 4px );
+                    border-radius: 10px;
+                    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+                    a {
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        padding-left: 15px;
+                        padding-right: 5px;
+
+                        .icon {
+                            width: 20px;
+                            height: auto;
+                            margin-right: 15px;
+                        }
+
+                        span {
+                            font-size: 12px;
+                        }
+
+                    }
+
+                }
+
+            }
+
+            .info {
+
+                margin-top: auto;
+
+                ul {
+
+                    display: flex;
+                    padding: 15px;
+                    align-items: center;
+                    justify-content: center;
+
+                    li {
+
+                        margin: 0 15px;
+
+                        &:first-child{
+                            margin-left: 0;
+                        }
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        a {
+                            font-size: 12px;
+                            text-decoration: underline;
+                            color: $secondary;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    @include sm {
+        display: flex;
+    }
+
+}
