@@ -1,0 +1,62 @@
+@import "../general";
+
+#notSupported {
+
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-direction: column;
+    
+    padding: 2em;
+
+    .row {
+
+        width: 100%;
+        height: 50%;
+
+        display: flex;
+
+        &--upper {
+
+            align-items: center;
+            justify-content: center;
+            
+            h1 {
+                font-size: 3em;
+                word-wrap: break-word;
+                text-align: center;
+            }
+
+        }
+
+        &--lower {
+
+            align-items: flex-end;
+            justify-content: center;
+
+            ul {
+
+                display: flex;
+
+                li {
+                    margin: 0 10px;
+                    padding: 8px 16px;
+                    background-color: $on-background;
+                    color: $background;
+                    border-radius: 4px;
+                }
+
+            }
+
+        }
+
+    }
+
+    @include sm {
+        display: none;
+    }
+
+}
