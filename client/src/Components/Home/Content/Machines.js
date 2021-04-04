@@ -1,7 +1,9 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import "../../../Style/Modules/Home/Content/Machines.scss"
+
+import _ from 'lodash'
+import { refresh_delay, realtimeURL, connection } from './Machines.helper.js'
 
 const Machine = (props) => {
     return (
@@ -50,10 +52,97 @@ const Machine = (props) => {
     )
 }
 
+class Tickers extends React.Component {
+
+    constructor(props){
+        super(props)
+
+        this.state = {
+            ping: new Date(),
+            evt: '',
+            tickers: []
+        }
+
+        this.eventSource = new EventSource(realtimeURL)
+
+        setInterval(() => {
+            let now = new Date().getTime()
+            let diff = (now - this.state.ping.getTime()) / 1000;
+
+            // if(diff > 20){
+            //     window.location.reload()
+            // }
+
+        },10000)
+    }
+
+    getTickerData = () => {
+
+        connection.get('/api/machines/list')
+        .then(res => {
+            let now = new Date().getTime()
+            let tickers = res.data
+            let diff = null
+            
+            console.log(tickers)
+
+            _.each(tickers, (t) => {
+                diff = (now - new Date(t._changed).getTime()) / 1000;
+                if (diff < 10) {
+                    t.isChanged = true;
+                } else {
+                    t.isChanged = false;
+                }
+            })
+
+            this.setState({
+                tickers: tickers
+            });
+
+        })
+    }
+
+    componentDidMount(){
+        console.log("Start client");
+        this.getTickerData()
+
+        this.eventSource.onmessage = (e) => {
+            this.getTickerData()
+        }
+
+    }
+
+    render(){
+        return (
+            <ul className="list">
+                {
+                    this.state.tickers.map((machine) => {
+                        return <Machine
+                            key={machine.vm}
+                            system={String(machine.os).toLowerCase().includes("windows")}
+                            name={machine.name}
+                            state={machine.state}
+                            uuid={machine.vm}
+                            os={machine.os}
+                            net={machine.ip}
+                            use="To implement"
+                        />
+                    })
+                }
+            </ul>
+        )
+    }
+
+}
+
 class Machines extends React.Component {
 
     constructor(props){
         super(props)
+    }
+
+    componentDidMount(){
+
     }
 
     render(){
@@ -70,13 +159,7 @@ class Machines extends React.Component {
                     <div className="column column--right">
                     </div>
                 </div>
-                <ul className="list">
-                    {
-                        this.props.machines.map((machine) => {
-                            <Machine />
-                        })
-                    }
-                </ul>
+                <Tickers />
             </div>
         )
     }

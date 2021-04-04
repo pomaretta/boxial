@@ -4,6 +4,7 @@ export default {
     API: {
         VIRTUALBOX: {
             PREFIX: "/api/",
+            REALTIME: "realtime",
             MACHINES: {
                 PREFIX: "machines/",
                 LIST: "list",

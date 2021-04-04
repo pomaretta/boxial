@@ -28,12 +28,40 @@ const machinePrefix = route + machine.PREFIX
 
 */
 
+// REALTIME
+vbox.get((options.API.VIRTUALBOX.PREFIX + options.API.VIRTUALBOX.REALTIME), async (req,res) => {
+    console.log('Got /realtime');
+    res.set({
+      'Cache-Control': 'no-cache',
+      'Content-Type': 'text/event-stream',
+      'Connection': 'keep-alive'
+    });
+    res.flushHeaders();
+
+    // Tell the client to retry every 10 seconds if connectivity is lost
+    res.write('retry: 10000\n\n');
+    let count = 0;
+
+    while (true) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('Emit', ++count);
+      // Emit an SSE that contains the current 'count' as a string
+      res.write(`data: ${count}\n\n`);
+    }
+})
+
 // MACHINES
 
 vbox.get((route + api.LIST), (req,res) => {
+    let data = []
     virtualbox.list((machines,error) => {
-        if(error) res.sendStatus(404)
-        res.json(machines)
+        Object.entries(machines).forEach(async ([key,value]) => {
+            let r = await axios.get(`http://localhost:8000/api/machines/${key}/info`)
+            data.push(r.data)
+            if(data.length == Object.entries(machines).length){
+                res.json(data)
+            }
+        })
     })
 })
 

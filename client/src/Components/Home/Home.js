@@ -10,14 +10,27 @@ class Home extends React.Component {
 
     constructor(props){
         super(props)
+
+        this.state = {
+            module: ""
+        }
+
+        this.changeModule = this.changeModule.bind(this)
+
+    }
+
+    changeModule(module){
+        this.setState({
+            module: String(module)
+        })
     }
 
     render(){
         return (
             <div id="home">
                 <Mobile />
-                <Controls />
-                <Content />
+                <Controls change={this.changeModule} />
+                <Content module={this.state.module} />
             </div>
         )
     }

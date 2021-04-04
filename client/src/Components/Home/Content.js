@@ -11,17 +11,12 @@ class Content extends React.Component {
 
     constructor(props){
         super(props)
-
-        this.state = {
-            module: "host"
-        }
-
     }
 
     renderSwitch(param){
         switch(param){
             case "machines":
-                return <Machines machines={this.state.machines} />
+                return <Machines />
             default:
                 return "Nothing"
         }
@@ -51,7 +46,7 @@ class Content extends React.Component {
                 <main>
                     <div id="content">
                         {
-                            this.renderSwitch(this.state.module)
+                            this.renderSwitch(this.props.module)
                         }
                     </div>
                     <div id="information">

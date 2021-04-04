@@ -34,10 +34,10 @@ class Controls extends React.Component {
                 </div>
                 <nav className="row row--lower">
                     <ul className="controls">
-                        <Control click={alert} icon={faHouseUser} title="Host" />
-                        <Control click={console.log("GG")} icon={faDesktop} title="Virtual Machines" />
-                        <Control click={console.log("GG")} icon={faHdd} title="Storage" />
-                        <Control click={console.log("GG")} icon={faNetworkWired} title="Networks" />
+                        <Control click={() => this.props.change("host")} icon={faHouseUser} title="Host" />
+                        <Control click={() => this.props.change("machines")} icon={faDesktop} title="Virtual Machines" />
+                        <Control click={() => this.props.change("storage")} icon={faHdd} title="Storage" />
+                        <Control click={() => this.props.change("networks")} icon={faNetworkWired} title="Networks" />
                     </ul>
                     <div className="info">
                         <ul>

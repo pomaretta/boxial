@@ -23,6 +23,7 @@ import * as fs from 'fs/promises'
 // EXTERNAL IMPORTS
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 /* 
 
@@ -71,6 +72,7 @@ const server = express()
 
 server.use(bodyParser.urlencoded({extended: true}))
 server.use(bodyParser.json())
+server.use(cors())
 
 /* 
 
