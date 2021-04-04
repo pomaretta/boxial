@@ -11,10 +11,16 @@
 import { Router } from 'express'
 import axios from 'axios'
 import virtualbox from 'virtualbox'
+import options from '../../options.js'
 
 // INIT
 
 const vbox = Router()
+
+const route = options.API.VIRTUALBOX.PREFIX + options.API.VIRTUALBOX.MACHINES.PREFIX
+const api = options.API.VIRTUALBOX.MACHINES
+const machine = options.API.VIRTUALBOX.MACHINES.MACHINE
+const machinePrefix = route + machine.PREFIX
 
 /* 
 
@@ -24,7 +30,7 @@ const vbox = Router()
 
 // MACHINES
 
-vbox.get('/api/machines/list', (req,res) => {
+vbox.get((route + api.LIST), (req,res) => {
     virtualbox.list((machines,error) => {
         if(error) res.sendStatus(404)
         res.json(machines)
@@ -34,7 +40,7 @@ vbox.get('/api/machines/list', (req,res) => {
 // MACHINE
 
 // IP
-vbox.get('/api/machines/:id/ip',(req,res) => {
+vbox.get((machinePrefix + machine.IP),(req,res) => {
     let options = {
         vm: req.params.id,
         key: '/VirtualBox/GuestInfo/Net/0/V4/IP'
@@ -49,7 +55,7 @@ vbox.get('/api/machines/:id/ip',(req,res) => {
 })
 
 // OS
-vbox.get('/api/machines/:id/os',(req,res) => {
+vbox.get((machinePrefix + machine.OS),(req,res) => {
     let options = {
         vm: req.params.id,
         key: '/VirtualBox/GuestInfo/OS/Product'
@@ -64,7 +70,7 @@ vbox.get('/api/machines/:id/os',(req,res) => {
 })
 
 // NAME
-vbox.get('/api/machines/:id/name',(req,res) => {
+vbox.get((machinePrefix + machine.NAME),(req,res) => {
     let vm = req.params.id
     virtualbox.list((machines,error) => {
         Object.entries(machines).forEach(([key,value]) => {
@@ -79,7 +85,7 @@ vbox.get('/api/machines/:id/name',(req,res) => {
 })
 
 // STATE
-vbox.get('/api/machines/:id/state',(req,res) => {
+vbox.get((machinePrefix + machine.STATE),(req,res) => {
     let vm = req.params.id
     virtualbox.list((machines,error) => {
         Object.entries(machines).forEach(([key,value]) => {
@@ -94,7 +100,7 @@ vbox.get('/api/machines/:id/state',(req,res) => {
 })
 
 // INFO
-vbox.get('/api/machines/:id/info',async (req,res) => {
+vbox.get((machinePrefix + machine.INFO),async (req,res) => {
 
     let vm = req.params.id
     let name = await axios.get(`http://localhost:8000/api/machines/${vm}/name`)
@@ -117,6 +123,69 @@ vbox.get('/api/machines/:id/info',async (req,res) => {
     
 })
 
+// CONTROLS
+vbox.get((machinePrefix + machine.RUN.GR), (req,res) => {
+
+    let vm = req.params.id
+
+    virtualbox.start(vm,true, (error) => {
+        if(error) res.json({vm: vm, error: true})
+        res.json({
+            vm: vm,
+            error: false
+        })
+    })
+
+})
+
+vbox.get((machinePrefix + machine.RUN.HL), (req,res) => {
+
+    let vm = req.params.id
+
+    virtualbox.start(vm, false, (error) => {
+        if(error) res.json({vm: vm, status: "error"})
+        res.json({
+            vm: vm,
+            status: "booting"
+        })
+    })
+
+})
+
+vbox.get((machinePrefix + machine.STOP.SV), (req,res) => {
+
+    let vm = req.params.id
+
+    virtualbox.stop(vm, (error) => {
+        if(error) res.json({
+            vm: vm,
+            status: "error"
+        })
+        res.json({
+            vm: vm,
+            status: "saving state"
+        })
+    })
+
+})
+
+vbox.get((machinePrefix + machine.STOP.PO), (req,res) => {
+
+    let vm = req.params.id
+
+    virtualbox.poweroff(vm, (error) => {
+        if(error) res.json({
+            vm: vm,
+            status: "error"
+        })
+        res.json({
+            vm: vm,
+            status: "poweroff"
+        })
+    })
+
+})
+
 /* 
 
     POST
@@ -135,6 +204,12 @@ vbox.get('/api/machines/:id/info',async (req,res) => {
         - OS
         - IP
         - STATE
+    -- RUN MACHINE
+        - GRAPHICAL (GR)
+        - HEADLESS (HL)
+    -- STOP MACHINE
+        - SAVE STATE (SV)
+        - POWEROFF (PO)
 
 */
 

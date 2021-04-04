@@ -17,10 +17,43 @@
 
 // CUSTOM IMPORTS
 import banner from './util/banner.js'
+import options from './options.js'
+import * as fs from 'fs/promises'
 
 // EXTERNAL IMPORTS
 import express from 'express'
 import bodyParser from 'body-parser'
+
+/* 
+
+    UTILITIES
+
+*/
+
+// CREATE LOG DIRECTORIES IF NOT EXISTS
+let rootExists = false;
+try {
+    await fs.mkdir("./" + options.LOGS.DIRECTORY);
+    rootExists = true;
+} catch (err){
+    rootExists = true;
+}
+// CREATE INFO AND ERROR DIRECTORY
+try {
+    console.log(rootExists)
+    if(rootExists){
+        await fs.mkdir("./" + options.LOGS.DIRECTORY + "/" + options.LOGS.TYPE.INFO)
+    }
+} catch (err) {
+    //
+}
+try {
+    if(rootExists){
+        await fs.mkdir("./" + options.LOGS.DIRECTORY + "/" + options.LOGS.TYPE.ERRORS)
+    }
+} catch (err) {
+    //
+}
 
 /* 
 
