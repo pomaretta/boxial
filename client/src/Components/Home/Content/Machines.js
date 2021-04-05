@@ -57,6 +57,8 @@ class Tickers extends React.Component {
     constructor(props){
         super(props)
 
+        this.machines = null
+
         this.state = {
             ping: new Date(),
             evt: '',
@@ -65,15 +67,6 @@ class Tickers extends React.Component {
 
         this.eventSource = new EventSource(realtimeURL)
 
-        setInterval(() => {
-            let now = new Date().getTime()
-            let diff = (now - this.state.ping.getTime()) / 1000;
-
-            // if(diff > 20){
-            //     window.location.reload()
-            // }
-
-        },10000)
     }
 
     getTickerData = () => {
@@ -83,8 +76,6 @@ class Tickers extends React.Component {
             let now = new Date().getTime()
             let tickers = res.data
             let diff = null
-            
-            console.log(tickers)
 
             _.each(tickers, (t) => {
                 diff = (now - new Date(t._changed).getTime()) / 1000;
@@ -94,6 +85,8 @@ class Tickers extends React.Component {
                     t.isChanged = false;
                 }
             })
+
+            this.orderItems(this.state.tickers)
 
             this.setState({
                 tickers: tickers
@@ -106,10 +99,25 @@ class Tickers extends React.Component {
         console.log("Start client");
         this.getTickerData()
 
-        this.eventSource.onmessage = (e) => {
+        setInterval(() => {
             this.getTickerData()
+        },refresh_delay)
+
+        this.eventSource.onmessage = (e) => {
+            this.setState({
+                ping: new Date()
+            })
         }
 
+    }
+
+    orderItems(array,callback){
+        console.log("TRY TO ORDER")
+        let machines = array
+        Object.entries(machines).sort(function(a,b){
+            a[0].
+        })
+        console.log(machines)
     }
 
     render(){

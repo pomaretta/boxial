@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const refresh_delay = 10000
+const refresh_delay = 5000
 
 let connection = axios.create({
     baseURL: 'http://localhost:8000',
