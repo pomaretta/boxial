@@ -78,7 +78,7 @@ vbox.get((route + api.LIST), (req,res) => {
 // MACHINE
 
 // IP
-vbox.get((machinePrefix + machine.IP),(req,res) => {
+vbox.get((machinePrefix + machine.IP),(req,res) => {    
     let options = {
         vm: req.params.id,
         key: '/VirtualBox/GuestInfo/Net/0/V4/IP'
@@ -88,6 +88,21 @@ vbox.get((machinePrefix + machine.IP),(req,res) => {
         res.json({
             vm: req.params.id,
             ip: value
+        })
+    })
+})
+
+// MASK
+vbox.get((machinePrefix + machine.MASK),(req,res) => {
+    let options = {
+        vm: req.params.id,
+        key: '/VirtualBox/GuestInfo/Net/0/V4/Netmask'
+    }
+    virtualbox.guestproperty.get(options,(value,error) => {
+        if(error) throw error
+        res.json({
+            vm: req.params.id,
+            mask: value
         })
     })
 })
@@ -240,7 +255,9 @@ vbox.get((machinePrefix + machine.STOP.PO), (req,res) => {
     -- GET MACHINE BASIC INFO
         - NAME
         - OS
-        - IP
+        -- IP
+            - IP
+            - NETMASK
         - STATE
     -- RUN MACHINE
         - GRAPHICAL (GR)

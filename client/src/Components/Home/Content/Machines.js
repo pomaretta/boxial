@@ -1,60 +1,74 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "../../../Style/Modules/Home/Content/Machines.scss"
 
 import _ from 'lodash'
 import { refresh_delay, realtimeURL, connection } from './Machines.helper.js'
 import axios from 'axios'
 
-const Machine = (props) => {
-    return (
+class Machine extends React.Component {
+    constructor(props){
+        super(props)
+    }
+
+    chooseSystem(system){
+        if(system.includes("windows")){
+            return "/images/windows.png";
+        } else if(system.includes("linux")){
+            return "/images/linux.png";
+        } else if(system.includes("darwin")){
+            return "/images/apple.png";
+        } else {
+            return "/images/windows.png";
+        }
+    }
+
+    render(){
+        return (
         <li>
-            <img src={props.system ? "/images/windows.png" : "/images/linux.png"} className="systemImage" alt="System Image" />
+            <img src={this.chooseSystem(this.props.system)} className="systemImage" alt="System Image" />
             <div className="machine">
                 <div className="row row--upper">
                     <div className="column column--left">
                         <h3>
-                            {props.name}
+                            {this.props.name}
                         </h3>
                     </div>
                     <div className="column column--right">
                         <p>
                             Active 
                             <span>
-                                {props.state ? "🟢" : "🔴"}
+                                {this.props.state ? "🟢" : "🔴"}
                             </span>
                         </p>
                     </div>
                 </div>
                 <div className="row row--lower">
                     <div className="group">
-                        <p>UUID: {props.uuid}</p>
+                        <p>UUID: {this.props.uuid}</p>
                     </div>
                     <div className="group">
-                        <p>OS: {props.os}</p>
+                        <p>OS: {this.props.os}</p>
                     </div>
                     <div className="group">
-                        <p>IP: {props.net}</p>
-                    </div>
-                    <div className="group">
-                        <p>Last use: {props.use}</p>
+                        <p>IP: {this.props.net}</p>
                     </div>
                     <div className="group controls">
                         <div className="column column--left">
-                            <a onClick={props.state ? props.stop : props.run}>{
-                                props.state
-                                ? "Poweroff"
+                            <a onClick={this.props.state ? this.props.stop : this.props.run} className={this.props.state ? "warning" : ""} >{
+                                this.props.state
+                                ? "Save State"
                                 : "Start" 
                             }</a>
                         </div>
                         <div className="column column--right">
-                            <a href="#" className="warning">Delete</a>
+                            {/* <a href="#" className="warning">Delete</a> */}
                         </div>
                     </div>
                 </div>
             </div>
         </li>
-    )
+        )
+    }
 }
 
 class Tickers extends React.Component {
@@ -101,7 +115,7 @@ class Tickers extends React.Component {
     }
 
     componentDidMount(){
-        console.log("Start client");
+        console.log("---- MACHINES MODULE ----");
         this.getTickerData()
 
         setInterval(() => {
@@ -141,7 +155,7 @@ class Tickers extends React.Component {
                     this.state.tickers.map((machine) => {
                         return <Machine
                             key={machine.vm}
-                            system={String(machine.os).toLowerCase().includes("windows")}
+                            system={String(machine.os).toLowerCase()}
                             name={machine.name}
                             state={machine.state}
                             uuid={machine.vm}
@@ -166,10 +180,6 @@ class Machines extends React.Component {
 
         this.startMachine = this.startMachine.bind(this)
         this.stopMachine = this.stopMachine.bind(this)
-
-    }
-
-    componentDidMount(){
 
     }
 

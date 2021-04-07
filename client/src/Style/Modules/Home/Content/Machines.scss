@@ -77,6 +77,22 @@
 
             &--right {
                 justify-content: flex-end;
+
+                p {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    padding: 8px 16px;
+                    background-color: rgba($color: $primary, $alpha: 0.6);
+                    color: $background;
+                    border-radius: 4px;
+                }
+
+                span {
+                    margin-left: 10px;
+                }
+
             }
 
         }

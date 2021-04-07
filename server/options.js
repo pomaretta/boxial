@@ -13,6 +13,7 @@ export default {
                     NAME: "name",
                     OS: "os",
                     IP: "ip",
+                    MASK: "mask",
                     STATE: "state",
                     INFO: "info",
                     RUN: {
