@@ -25,6 +25,9 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
+// UTILITY IMPORTS
+import virtualbox from 'virtualbox'
+
 /* 
 
     UTILITIES
@@ -39,6 +42,14 @@ try {
 } catch (err){
     rootExists = true;
 }
+
+// CREATE DB DIRECTORY
+try {
+    await fs.mkdir("./" + options.DB.DIRECTORY);
+} catch (err) {
+    //
+}
+
 // CREATE INFO AND ERROR DIRECTORY
 try {
     console.log(rootExists)
@@ -54,6 +65,39 @@ try {
     }
 } catch (err) {
     //
+}
+
+/* 
+
+    VBOX MACHINES DB
+
+*/
+
+try {
+    await fs.open("./" + options.DB.DIRECTORY + "/" + options.DB.DATA)
+} catch (error) {
+
+    // CREATE FILE AND MAP MACHINES
+    let machines = []
+
+    await virtualbox.list((m,e) => {
+
+        let index = 0;
+
+        Object.entries(m).forEach(([key,value]) => {
+            machines.push({
+                uuid: key,
+                name: value.name,
+                index: index
+            })
+            index++;
+        })
+        
+        fs.writeFile("./" + options.DB.DIRECTORY + "/" + options.DB.DATA,JSON.stringify(machines))
+        .catch(err => console.log(err))
+        
+    })
+
 }
 
 /* 
@@ -81,6 +125,7 @@ server.use(cors())
 */
 
 import vBoxRoutes from './routes/api/vbox.js'
+import axios from 'axios'
 
 server.use(vBoxRoutes)
 

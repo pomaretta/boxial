@@ -11,6 +11,7 @@
 import { Router } from 'express'
 import axios from 'axios'
 import virtualbox from 'virtualbox'
+import * as fs from 'fs'
 import options from '../../options.js'
 
 // INIT
@@ -21,6 +22,9 @@ const route = options.API.VIRTUALBOX.PREFIX + options.API.VIRTUALBOX.MACHINES.PR
 const api = options.API.VIRTUALBOX.MACHINES
 const machine = options.API.VIRTUALBOX.MACHINES.MACHINE
 const machinePrefix = route + machine.PREFIX
+
+// LOAD JSON Machines from Disk
+const mappedMachines = JSON.parse(fs.readFileSync('./' + options.DB.DIRECTORY + "/" + options.DB.DATA))
 
 /* 
 
@@ -58,6 +62,11 @@ vbox.get((route + api.LIST), (req,res) => {
     virtualbox.list((machines,error) => {
         Object.entries(machines).forEach(async ([key,value]) => {
             let r = await axios.get(`http://localhost:8000/api/machines/${key}/info`)
+            Object.entries(mappedMachines).forEach((m) => {
+                if(r.data.vm == m[1].uuid){
+                    r.data['index'] = m[1].index
+                }
+            })
             data.push(r.data)
             if(data.length == Object.entries(machines).length){
                 res.json(data)

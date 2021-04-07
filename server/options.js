@@ -33,5 +33,9 @@ export default {
             ERRORS: "errors",
             INFO: "info"
         }
+    },
+    DB: {
+        DIRECTORY: "db",
+        DATA: "machines.json"
     }
 }
