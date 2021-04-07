@@ -4,6 +4,7 @@ import "../../../Style/Modules/Home/Content/Machines.scss"
 
 import _ from 'lodash'
 import { refresh_delay, realtimeURL, connection } from './Machines.helper.js'
+import axios from 'axios'
 
 const Machine = (props) => {
     return (
@@ -40,7 +41,11 @@ const Machine = (props) => {
                     </div>
                     <div className="group controls">
                         <div className="column column--left">
-                            <a href="#">Start</a>
+                            <a onClick={props.state ? props.stop : props.run}>{
+                                props.state
+                                ? "Poweroff"
+                                : "Start" 
+                            }</a>
                         </div>
                         <div className="column column--right">
                             <a href="#" className="warning">Delete</a>
@@ -89,7 +94,7 @@ class Tickers extends React.Component {
             this.orderItems(this.state.tickers)
 
             this.setState({
-                tickers: tickers
+                tickers: this.orderItems(tickers)
             });
 
         })
@@ -111,13 +116,22 @@ class Tickers extends React.Component {
 
     }
 
-    orderItems(array,callback){
-        console.log("TRY TO ORDER")
-        let machines = array
-        Object.entries(machines).sort(function(a,b){
-            a[0].
-        })
-        console.log(machines)
+    orderItems(array){
+        var i, j, temp;
+        for(i = 0; i < array.length; i++){
+            for(j = 0; j < array.length-i-1; j++){
+                if(this.compareMachine(array[j],array[j+1]) == -1){
+                    temp = array[j];
+                    array[j] = array[j+1];
+                    array[j+1] = temp;
+                }
+            }
+        }
+        return array
+    }
+
+    compareMachine(a,b){
+        return (a.index < b.index) ? -1 : (a.index > b.index) ? 1 : 0;
     }
 
     render(){
@@ -134,6 +148,8 @@ class Tickers extends React.Component {
                             os={machine.os}
                             net={machine.ip}
                             use="To implement"
+                            run={() => {this.props.start(machine.vm)}}
+                            stop={() => {this.props.stop(machine.vm)}}
                         />
                     })
                 }
@@ -147,10 +163,32 @@ class Machines extends React.Component {
 
     constructor(props){
         super(props)
+
+        this.startMachine = this.startMachine.bind(this)
+        this.stopMachine = this.stopMachine.bind(this)
+
     }
 
     componentDidMount(){
 
+    }
+
+    startMachine(machine){
+        let result = false;
+        axios.get(`http://localhost:8000/api/machines/${machine}/run/hl`)
+        .then(
+            result = true
+        )
+        return result
+    }
+
+    stopMachine(machine){
+        let result = false;
+        axios.get(`http://localhost:8000/api/machines/${machine}/stop`)
+        .then(
+            result = true
+        )
+        return result
     }
 
     render(){
@@ -167,7 +205,7 @@ class Machines extends React.Component {
                     <div className="column column--right">
                     </div>
                 </div>
-                <Tickers />
+                <Tickers start={this.startMachine} stop={this.stopMachine} />
             </div>
         )
     }
