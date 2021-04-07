@@ -6,6 +6,7 @@ import '../../Style/Modules/Home/Content.scss'
 
 // MODULES
 import Machines from './Content/Machines'
+import Host from './Content/Host'
 
 class Content extends React.Component {
 
@@ -17,6 +18,8 @@ class Content extends React.Component {
         switch(param){
             case "machines":
                 return <Machines />
+            case "host":
+                return <Host />
             default:
                 return "Nothing"
         }

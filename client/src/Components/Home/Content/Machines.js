@@ -8,6 +8,15 @@ import axios from 'axios'
 class Machine extends React.Component {
     constructor(props){
         super(props)
+
+        this.state = {
+            actualState: this.props.state,
+            loading: false
+        }
+
+        this.chooseSystem = this.chooseSystem.bind(this)
+        this.executeUpdate = this.executeUpdate.bind(this)
+
     }
 
     chooseSystem(system){
@@ -22,9 +31,32 @@ class Machine extends React.Component {
         }
     }
 
+    executeUpdate(){
+
+        this.setState({
+            loading: true
+        })
+
+        setTimeout(() => {
+            this.setState({
+                loading: false
+            })
+        },5000)
+
+        if(this.props.state){
+            this.props.stop()
+        } else {
+            this.props.run()
+        }
+
+    }
+
     render(){
         return (
         <li>
+            <div className={["loader",this.state.loading ? "active" : ""].join(" ")}>
+                <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
             <img src={this.chooseSystem(this.props.system)} className="systemImage" alt="System Image" />
             <div className="machine">
                 <div className="row row--upper">
@@ -54,7 +86,7 @@ class Machine extends React.Component {
                     </div>
                     <div className="group controls">
                         <div className="column column--left">
-                            <a onClick={this.props.state ? this.props.stop : this.props.run} className={this.props.state ? "warning" : ""} >{
+                            <a onClick={this.executeUpdate} className={this.props.state ? "warning" : ""} >{
                                 this.props.state
                                 ? "Save State"
                                 : "Start" 

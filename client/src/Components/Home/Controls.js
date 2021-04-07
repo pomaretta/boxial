@@ -36,8 +36,6 @@ class Controls extends React.Component {
                     <ul className="controls">
                         <Control click={() => this.props.change("host")} icon={faHouseUser} title="Host" />
                         <Control click={() => this.props.change("machines")} icon={faDesktop} title="Virtual Machines" />
-                        <Control click={() => this.props.change("storage")} icon={faHdd} title="Storage" />
-                        <Control click={() => this.props.change("networks")} icon={faNetworkWired} title="Networks" />
                     </ul>
                     <div className="info">
                         <ul>
