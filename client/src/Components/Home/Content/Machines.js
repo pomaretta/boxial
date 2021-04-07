@@ -89,7 +89,7 @@ class Tickers extends React.Component {
             this.orderItems(this.state.tickers)
 
             this.setState({
-                tickers: tickers
+                tickers: this.orderItems(tickers)
             });
 
         })
@@ -111,13 +111,22 @@ class Tickers extends React.Component {
 
     }
 
-    orderItems(array,callback){
-        console.log("TRY TO ORDER")
-        let machines = array
-        Object.entries(machines).sort(function(a,b){
-            a[0].
-        })
-        console.log(machines)
+    orderItems(array){
+        var i, j, temp;
+        for(i = 0; i < array.length; i++){
+            for(j = 0; j < array.length-i-1; j++){
+                if(this.compareMachine(array[j],array[j+1]) == -1){
+                    temp = array[j];
+                    array[j] = array[j+1];
+                    array[j+1] = temp;
+                }
+            }
+        }
+        return array
+    }
+
+    compareMachine(a,b){
+        return (a.index < b.index) ? -1 : (a.index > b.index) ? 1 : 0;
     }
 
     render(){
