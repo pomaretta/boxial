@@ -11,11 +11,13 @@
     "@testing-library/user-event": "^12.8.3",
     "animate.css": "^4.1.1",
     "axios": "^0.21.1",
+    "d3-ease": "^2.0.0",
     "lodash": "^4.17.21",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
     "react-circular-progressbar": "^2.0.4",
     "react-dom": "^17.0.2",
+    "react-move": "^6.4.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1"

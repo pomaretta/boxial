@@ -643,3 +643,130 @@ body {
     }
 
 }
+
+.metrics {
+
+    // z-index: -5;
+
+    width: 100%;
+    min-height: 150px;
+    max-height: 250px;
+
+    padding: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .group {
+
+        width: 28%;
+        height: 100%;
+        background-color: blue;
+
+        margin: 0 15px;
+
+        padding: 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: $background;
+        box-shadow: 0 8px 15px 0 rgba( 31, 38, 135, 0.10 );
+        backdrop-filter: blur( 4px );
+        -webkit-backdrop-filter: blur( 4px );
+        border-radius: 10px;
+        border: 3px solid rgba( 255, 255, 255, 0.18 );
+
+        color: $primary;
+
+        &:hover {
+            border: 3px solid $primary;
+        }
+
+    }
+
+    
+    @include sm {
+        min-height: 200px;
+    }
+
+    @include lg {
+        min-height: 250px;
+    }
+
+}
+
+.information {
+    
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    padding: 25px;
+    
+    width: 100%;
+    margin-top: 15px;
+
+    table {
+
+        border-spacing: 0;
+        overflow: hidden;
+
+        width: 100%;
+
+        background: $background;
+        box-shadow: 0 8px 15px 0 rgba( 31, 38, 135, 0.10 );
+        backdrop-filter: blur( 4px );
+        -webkit-backdrop-filter: blur( 4px );
+        border-radius: 10px;
+    
+        th {
+            background-color: $secondary;
+            color: $primary;
+        }
+    
+        th, td {
+            padding: 20px;
+        }
+    
+        tbody {
+    
+            tr {
+                :first-child {
+                    width: 40%;
+                }
+            }
+
+            td {
+                border-bottom: 1px solid #E6E6E6;
+            }
+    
+            :last-child {
+                td {
+                    border-bottom: 2px solid $primary;
+                }
+            }
+    
+            tr {
+                
+    
+    
+                &:nth-child(even){
+                    background-color: #F3F3F3;
+    
+                    td {
+                        color: $primary;
+                        font-weight: 500;
+                    }
+    
+                }
+    
+            }
+    
+        }
+    
+    }
+
+}

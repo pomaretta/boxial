@@ -21,7 +21,7 @@ class Content extends React.Component {
             case "host":
                 return <Host />
             default:
-                return "Nothing"
+                return <Host />
         }
     }
 

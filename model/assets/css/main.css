@@ -664,4 +664,118 @@ body {
     display: flex;
   }
 }
+
+.metrics {
+  width: 100%;
+  min-height: 150px;
+  max-height: 250px;
+  padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.metrics .group {
+  width: 28%;
+  height: 100%;
+  background-color: blue;
+  margin: 0 15px;
+  padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #FFFFFF;
+  -webkit-box-shadow: 0 8px 15px 0 rgba(31, 38, 135, 0.1);
+          box-shadow: 0 8px 15px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  color: #6200EE;
+}
+
+.metrics .group:hover {
+  border: 3px solid #6200EE;
+}
+
+@media screen and (min-width: 600px) {
+  .metrics {
+    min-height: 200px;
+  }
+}
+
+@media screen and (min-width: 1050px) {
+  .metrics {
+    min-height: 250px;
+  }
+}
+
+.information {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 25px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.information table {
+  border-spacing: 0;
+  overflow: hidden;
+  width: 100%;
+  background: #FFFFFF;
+  -webkit-box-shadow: 0 8px 15px 0 rgba(31, 38, 135, 0.1);
+          box-shadow: 0 8px 15px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+}
+
+.information table th {
+  background-color: #03DAC6;
+  color: #6200EE;
+}
+
+.information table th, .information table td {
+  padding: 20px;
+}
+
+.information table tbody tr :first-child {
+  width: 40%;
+}
+
+.information table tbody td {
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.information table tbody :last-child td {
+  border-bottom: 2px solid #6200EE;
+}
+
+.information table tbody tr:nth-child(even) {
+  background-color: #F3F3F3;
+}
+
+.information table tbody tr:nth-child(even) td {
+  color: #6200EE;
+  font-weight: 500;
+}
 /*# sourceMappingURL=main.css.map */

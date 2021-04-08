@@ -9,6 +9,10 @@
     <script src="https://kit.fontawesome.com/a68a4e99a5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/main.css">
 
+    <!-- LIB -->
+    <link rel="stylesheet" href="./assets/lib/loading-bar.css">
+    <script src="./assets/lib/loading-bar.js" async></script>
+
 </head>
 <body>
     
@@ -108,8 +112,9 @@
         </header>
         <main>
             <div id="content">
+                
                 <!-- VMACHINES -->
-                <div class="functionality">
+                <!-- div class="functionality">
                     <div class="column column--left">
                         <h3>Virtual Machines</h3>
                         <p>Add new virtual machines</p>
@@ -316,7 +321,70 @@
                             </div>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
+
+                <!-- HOST -->
+                <div class="metrics">
+
+                    <div class="group">
+                        <div
+                            data-preset="circle"
+                            class="ldBar label-center"
+                            data-value="60"
+                        ></div>
+                    </div>
+
+                    <div class="group">
+                        <div
+                            data-preset="circle"
+                            class="ldBar label-center"
+                            data-value="90"
+                        ></div>
+                    </div>
+
+                    <div class="group">
+                        <div
+                            data-preset="circle"
+                            class="ldBar label-center"
+                            data-value="30"
+                        ></div>
+                    </div>
+
+                </div>
+
+                <div class="information">
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>CPU</td>
+                                <td>Intel i7-4790 3.6GHz 4C/8T</td>
+                            </tr>
+                            <tr>
+                                <td>RAM Memory</td>
+                                <td>32 GB 1600 MHz</td>
+                            </tr>
+                            <tr>
+                                <td>Storage</td>
+                                <td>480GB</td>
+                            </tr>
+                            <tr>
+                                <td>Graphics</td>
+                                <td>NVIDIA GeForce GTX 1050 Ti</td>
+                            </tr>
+                            <tr>
+                                <td>System</td>
+                                <td>Windows 10</td>
+                            </tr>
+                            <tr>
+                                <td>Network</td>
+                                <td>Wired, 172.18.45.183, 255.255.0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
             </div>
             <div id="information">
                 <div class="column column--left">
