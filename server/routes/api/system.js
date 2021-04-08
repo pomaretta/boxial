@@ -60,7 +60,7 @@ system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.RAW.PREFIX + options.
 
 // HOSTNAME
 system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.HOSTNAME), (req,res) => {
-    systemInformation.osInfo().then(data => res.json(data.hostname))
+      systemInformation.osInfo().then(data => res.json(data.hostname))
 })
 
 // CPU INFO
@@ -80,22 +80,63 @@ system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.CPU.DEFAULT), (req,re
     })
 })
 
+// CPU USAGE
+system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.CPU.PREFIX + options.API.SYSTEM.CPU.USAGE), (req,res) => {
+    systemInformation.currentLoad().then(data => res.json(data))
+})
+
 // RAM INFO
-system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.RAM.DEFAULT), (req,res) => {
-    res.sendStatus(200)
+system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.RAM), (req,res) => {
+    systemInformation.mem().then(data =>
+        res.json(data)
+    )
 })
 
 // STORAGE INFO
-
+system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.STORAGE), (req,res) => {
+    systemInformation.fsSize().then(data => res.json(data))
+})
 
 // GRAPHICS INFO
-
-
-// SYSTEM INFO
-
+system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.GRAPHICS), (req,res) => {
+    systemInformation.graphics().then(data => res.json(data))
+})
 
 // NETWORK INFO
+system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.NETWORK), (req,res) => {
+    systemInformation.networkInterfaces().then(data => res.json(data))
+})
 
+// OVERALL INFO
+system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.INFO), async (req, res) => {
+
+    // CPU LOAD
+    let cpu = await axios.get(`http://localhost:8000/api/system/cpu/usage`)
+
+    // RAM DATA
+    let ram = await axios.get(`http://localhost:8000/api/system/ram`)
+
+    // STORAGE
+    let storage = await axios.get('http://localhost:8000/api/system/storage')
+
+    // GRAPHICS
+    let graphics = await axios.get('http://localhost:8000/api/system/graphics')
+
+    // NETWORK
+    let network = await axios.get('http://localhost:8000/api/system/network')
+
+    // OS
+    let os = await axios.get('http://localhost:8000/api/system/raw/os')
+
+    res.json({
+        os: os.data,
+        cpu: cpu.data,
+        ram: ram.data,
+        storage: storage.data,
+        graphics: graphics.data,
+        network: network.data
+    })
+})
 
 /* 
 
@@ -108,6 +149,17 @@ system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.RAM.DEFAULT), (req,re
 /* 
 
     FUNCTIONALITIES
+
+    -- RAW DATA
+        - OS
+        - CPU
+    - CPU LOAD
+    - MAIN MEMORY METRICS
+    - STORAGE INFORMATION
+    - GRAPHICS INFORMATION
+    - NETWORK STATUS
+
+    -- ALL INFO
 
 */
 

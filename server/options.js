@@ -11,14 +11,10 @@ export default {
                 DEFAULT: "cpu",
                 USAGE: "usage"
             },
-            RAM: {
-                PREFIX: "ram/",
-                DEFAULT: "ram",
-                USAGE: "usage"
-            },
+            RAM: "ram",
             STORAGE: "storage",
             GRAPHICS: "graphics",
-            INFO: "system",
+            INFO: "info",
             NETWORK: "network",
             RAW: {
                 PREFIX: "raw/",
