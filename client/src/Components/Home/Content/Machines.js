@@ -107,9 +107,7 @@ class Tickers extends React.Component {
 
     constructor(props){
         super(props)
-
-        this.machines = null
-
+        
         this.state = {
             ping: new Date(),
             evt: '',
