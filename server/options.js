@@ -2,6 +2,30 @@ export default {
     DEBUG: false,
     PORT: 8000,
     API: {
+        SYSTEM: {
+            PREFIX: "/api/system/",
+            REALTIME: "realtime",
+            HOSTNAME: "hostname",
+            CPU: {
+                PREFIX: "cpu/",
+                DEFAULT: "cpu",
+                USAGE: "usage"
+            },
+            RAM: {
+                PREFIX: "ram/",
+                DEFAULT: "ram",
+                USAGE: "usage"
+            },
+            STORAGE: "storage",
+            GRAPHICS: "graphics",
+            INFO: "system",
+            NETWORK: "network",
+            RAW: {
+                PREFIX: "raw/",
+                OS: "os",
+                CPU: "cpu"
+            }
+        },
         VIRTUALBOX: {
             PREFIX: "/api/",
             REALTIME: "realtime",

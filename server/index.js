@@ -125,9 +125,10 @@ server.use(cors())
 */
 
 import vBoxRoutes from './routes/api/vbox.js'
-import axios from 'axios'
+import systemRoutes from './routes/api/system.js' 
 
 server.use(vBoxRoutes)
+server.use(systemRoutes)
 
 // LISTENER
 server.listen(8000 | process.env.NODE_PORT, () => {
