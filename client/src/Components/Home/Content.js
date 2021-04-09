@@ -40,7 +40,7 @@ class Content extends React.Component {
                             <li>
                                 <a href="#">
                                     <FontAwesomeIcon className="icon" icon={faUser} />
-                                    <span>Carlos</span>
+                                    <span>{this.props.user ? this.props.user.user.username : "undefined"}</span>
                                 </a>
                             </li>
                         </ul>
