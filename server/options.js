@@ -5,6 +5,7 @@ export default {
         SYSTEM: {
             PREFIX: "/api/system/",
             REALTIME: "realtime",
+            METRICS: "metrics",
             HOSTNAME: "hostname",
             CPU: {
                 PREFIX: "cpu/",

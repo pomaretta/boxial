@@ -9,6 +9,8 @@ import { easeQuadInOut } from 'd3-ease'
 import 'animate.css'
 import 'react-circular-progressbar/dist/styles.css';
 import '../../../Style/Modules/Home/Content/Host.scss'
+import { realtimeURL, connection, refresh_delay } from './Host.helper';
+import _ from 'lodash';
 
 const InfoRow = (props) => {
     return (
@@ -27,6 +29,74 @@ class Information extends React.Component {
 
             <table>
                 <tbody>
+                    {/* SYSTEM */}
+                    <InfoRow
+                        title="System"
+                        content={this.props.data.os ? this.props.data.os.distro : "Loading..."}
+                    />
+                    {/* CPU */}
+                    <InfoRow 
+                        title="CPU"
+                        content={this.props.data.cpuInfo ? 
+                            (
+                                this.props.data.cpuInfo.manufacturer + " "
+                                + this.props.data.cpuInfo.brand + " "
+                                + this.props.data.cpuInfo.cores + "C/"
+                                + this.props.data.cpuInfo.threads + "T "
+                                + this.props.data.cpuInfo.speed + "GHz"
+                            )
+                            : "Loading..."
+                        }
+                    />
+                    {/* RAM */}
+                    <InfoRow 
+                        title="RAM"
+                        content={
+                            this.props.data.ram ?
+                            (
+                                Math.round(((this.props.data.ram.total / 1024) / 1024) / 1024) + " GB"
+                            )
+                            : "Loading..."
+                        }
+                    />
+                    {/* STORAGE */}
+                    <InfoRow 
+                        title="Storage"
+                        content={
+                            this.props.data.storage ?
+                            (
+                                this.props.data.storage[0].fs + " "
+                                + Math.round(((this.props.data.storage[0].size / 1024) / 1024) / 1024) + "GB"
+                            )
+                            : "Loading..."
+                        }
+                    />
+                    {/* GRAPHICS */}
+                    <InfoRow 
+                        title="Graphics Card"
+                        content={
+                            this.props.data.graphics ?
+                            (
+                                this.props.data.graphics.controllers[0].model + " "
+                                + this.props.data.graphics.controllers[0].vram + "MB"
+                            )
+                            : "Loading..."
+                        }
+                    />
+                    {/* NETWORK */}
+                    <InfoRow 
+                        title="Network"
+                        content={
+                            this.props.data.network ?
+                            (
+                                this.props.data.network[0].type + " "
+                                + this.props.data.network[0].ip4 + " "
+                                + this.props.data.network[0].ip4subnet
+                            )
+                            : "Loading..."
+                        }
+                    />
+
                 </tbody>
             </table>
 
@@ -52,6 +122,7 @@ const MetrictsGroup = (props) => {
                     return (
                         <CircularProgressbarWithChildren 
                             value={value}
+                            maxValue={props.max}
                             text={`${roundedValue}${props.character} ${props.spacing} ${props.max}${props.character}`}
                             styles={buildStyles({
                                 // Rotation of path and trail, in number of turns (0-1)
@@ -70,7 +141,8 @@ const MetrictsGroup = (props) => {
                                 // pathTransition: 'none',
                             
                                 // Colors
-                                pathColor: `rgba(55, 0, 179,${props.value / 100})`,
+                                // pathColor: `rgba(55, 0, 179,${props.value / 100})`,
+                                pathColor: '#6200EE',
                                 textColor: '#6200EE',
                                 trailColor: '#d6d6d6',
                                 backgroundColor: '#3700B3',
@@ -99,7 +171,30 @@ class Metricts extends React.Component {
     render(){
         return (
             <div className="metrics">
-                
+                <MetrictsGroup
+                    title="CPU USAGE"
+                    value={this.props.data.cpu ? this.props.data.cpu.currentLoad : 0}
+                    character={"%"}
+                    spacing={"/"}
+                    max={100}
+                />
+                <MetrictsGroup
+                    title="RAM USAGE"                    
+                    value={this.props.data.ram ? (this.props.data.ram.used * 100 / this.props.data.ram.total) : 0}
+                    character={"%"}
+                    spacing={"/"}
+                    max={this.props.data.ram ? 100 : 100}
+                />
+                <MetrictsGroup 
+
+                    title="STORAGE USAGE"
+
+                    value={this.props.data.storage ? (this.props.data.storage[0].used * 100 / this.props.data.storage[0].size) : 0}
+                    character={"%"}
+                    spacing={"/"}
+                    max={this.props.data.storage ? 100 : 100}
+
+                />
             </div>
         )
     }
@@ -115,16 +210,88 @@ class Tickers extends React.Component {
         this.state = {
             ping: new Date(),
             evt: '',
-            tickers: 
+            tickers: [],
+            metrics: []
         }
 
     }    
 
+    getMetricsData = () => {
+        connection.get('/api/system/metrics')
+        .then(res => {
+
+            let now = new Date().getTime()
+            let tickers = res.data
+            let diff = null
+
+            _.each(tickers, (t) => {
+                diff = (now - new Date(t._changed).getTime()) / 1000;
+                if(diff < 10) {
+                    t.isChanged = true;
+                } else {
+                    t.isChanged = false;
+                }
+            })
+
+            this.setState({
+                metrics: tickers
+            })
+
+        })
+    }
+
+    getTickerData = () => {
+        connection.get('/api/system/info')
+        .then(res => {
+            let now = new Date().getTime()
+            let tickers = res.data
+            let diff = null
+
+            _.each(tickers, (t) => {
+                diff = (now - new Date(t._changed).getTime()) / 1000;
+                if(diff < 10) {
+                    t.isChanged = true;
+                } else {
+                    t.isChanged = false;
+                }
+            })
+
+            this.setState({
+                tickers: tickers
+            })
+
+        })
+    }
+
+    componentDidMount(){
+
+        this.eventSource = new EventSource(realtimeURL)
+
+        console.log("---- HOST MODULE ----")
+        this.getTickerData()
+
+        this.interval = setInterval(() => {
+            this.getMetricsData()
+        },refresh_delay)
+
+        this.eventSource.onmessage = (e) => {
+            this.setState({
+                ping: new Date()
+            })
+        }
+
+    }
+
+    componentWillUnmount(){
+        this.eventSource = null
+        this.interval = null
+    }
+
     render(){
         return (
             <div className="module" id="host">
-                <Metricts />
-                <Information />
+                <Metricts data={this.state.metrics} />
+                <Information data={this.state.tickers} />
             </div>
         )
     }

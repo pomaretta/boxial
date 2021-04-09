@@ -11,6 +11,7 @@ class Machine extends React.Component {
 
         this.state = {
             actualState: this.props.state,
+            tickState: this.props.state,
             loading: false
         }
 
@@ -34,19 +35,24 @@ class Machine extends React.Component {
     executeUpdate(){
 
         this.setState({
+            tickState: !this.props.state,
             loading: true
         })
-
-        setTimeout(() => {
-            this.setState({
-                loading: false
-            })
-        },5000)
 
         if(this.props.state){
             this.props.stop()
         } else {
             this.props.run()
+        }
+
+    }
+
+    componentDidUpdate(){
+
+        if(this.state.loading && this.state.tickState == this.props.state){
+            this.setState({
+                loading: false
+            })
         }
 
     }
@@ -114,8 +120,6 @@ class Tickers extends React.Component {
             tickers: []
         }
 
-        this.eventSource = new EventSource(realtimeURL)
-
     }
 
     getTickerData = () => {
@@ -134,9 +138,7 @@ class Tickers extends React.Component {
                     t.isChanged = false;
                 }
             })
-
-            this.orderItems(this.state.tickers)
-
+            
             this.setState({
                 tickers: this.orderItems(tickers)
             });
@@ -145,10 +147,13 @@ class Tickers extends React.Component {
     }
 
     componentDidMount(){
+
+        this.eventSource = new EventSource(realtimeURL)
+
         console.log("---- MACHINES MODULE ----");
         this.getTickerData()
 
-        setInterval(() => {
+        this.interval = setInterval(() => {
             this.getTickerData()
         },refresh_delay)
 
@@ -158,6 +163,11 @@ class Tickers extends React.Component {
             })
         }
 
+    }
+
+    componentWillUnmount(){
+        this.eventSource = null
+        this.interval = null
     }
 
     orderItems(array){

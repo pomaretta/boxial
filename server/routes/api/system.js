@@ -71,7 +71,7 @@ system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.CPU.DEFAULT), (req,re
             manufacturer: data.manufacturer,
             brand: data.brand,
             speed: data.speed,
-            cores: data.cores,
+            cores: data.physicalCores,
             threads: data.cores,
         }
 
@@ -113,6 +113,9 @@ system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.INFO), async (req, re
     // CPU LOAD
     let cpu = await axios.get(`http://localhost:8000/api/system/cpu/usage`)
 
+    // CPU INFO
+    let cpuInfo = await axios.get(`http://localhost:8000/api/system/cpu`)
+
     // RAM DATA
     let ram = await axios.get(`http://localhost:8000/api/system/ram`)
 
@@ -130,11 +133,31 @@ system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.INFO), async (req, re
 
     res.json({
         os: os.data,
+        cpuInfo: cpuInfo.data,
         cpu: cpu.data,
         ram: ram.data,
         storage: storage.data,
         graphics: graphics.data,
         network: network.data
+    })
+})
+
+// METRICS INFO 
+system.get((options.API.SYSTEM.PREFIX + options.API.SYSTEM.METRICS), async (req,res) => {
+
+    // CPU LOAD
+    let cpu = await axios.get(`http://localhost:8000/api/system/cpu/usage`)
+
+    // RAM DATA
+    let ram = await axios.get(`http://localhost:8000/api/system/ram`)
+
+    // STORAGE
+    let storage = await axios.get('http://localhost:8000/api/system/storage')
+
+    res.json({
+        cpu: cpu.data,
+        ram: ram.data,
+        storage: storage.data
     })
 })
 
