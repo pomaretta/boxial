@@ -47,6 +47,14 @@ export default {
                     }
                 }
             }
+        },
+        AUTH: {
+            PREFIX: '/api/auth/',
+            LOGIN: 'login',
+            UPDATE: {
+                PREFIX: 'change/',
+                PASSWORD: 'password'
+            }
         }
     },
     LOGS: {

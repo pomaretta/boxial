@@ -9,3 +9,10 @@ CREATE TABLE Users (
     PRIMARY KEY (id),
     UNIQUE (username)
 );
+
+CREATE TABLE user_session (
+    user            INT NOT NULL,
+    id              VARCHAR(36) NOT NULL,
+    PRIMARY KEY (user,id),
+    CONSTRAINT fk_user FOREIGN KEY (user) REFERENCES Users(id)
+);
