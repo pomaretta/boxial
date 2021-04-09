@@ -52,7 +52,6 @@ try {
 
 // CREATE INFO AND ERROR DIRECTORY
 try {
-    console.log(rootExists)
     if(rootExists){
         await fs.mkdir("./" + options.LOGS.DIRECTORY + "/" + options.LOGS.TYPE.INFO)
     }
@@ -125,10 +124,12 @@ server.use(cors())
 */
 
 import vBoxRoutes from './routes/api/vbox.js'
-import systemRoutes from './routes/api/system.js' 
+import systemRoutes from './routes/api/system.js'
+import authRoutes from './routes/api/authentication.js'
 
 server.use(vBoxRoutes)
 server.use(systemRoutes)
+server.use(authRoutes)
 
 // LISTENER
 server.listen(8000 | process.env.NODE_PORT, () => {
