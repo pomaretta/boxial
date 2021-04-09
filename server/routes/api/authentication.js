@@ -17,7 +17,18 @@ import query from '../../auth/database.js'
 
 const authentication = Router()
 
+// GET
+
+authentication.get((options.API.AUTH.PREFIX + options.API.AUTH.GET.USER), async (req,res) => {
+    const user = await query(`SELECT A.id, A.username FROM users A INNER JOIN user_session B ON A.id = B.user WHERE B.id = '${req.params.session}'`)
+    res.json({
+        session: req.params.session,
+        user: user[0]
+    })
+})
+
 // POST
+
 // authentication.post('/api/signup', async (req,res) => {
 
 //     const username = req.body.user.username

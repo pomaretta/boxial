@@ -51,6 +51,9 @@ export default {
         AUTH: {
             PREFIX: '/api/auth/',
             LOGIN: 'login',
+            GET: {
+                USER: ':session'
+            },
             UPDATE: {
                 PREFIX: 'change/',
                 PASSWORD: 'password'
