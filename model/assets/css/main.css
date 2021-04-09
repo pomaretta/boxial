@@ -34,25 +34,6 @@ img {
   max-width: 100%;
 }
 
-body {
-  display: -ms-grid;
-  display: grid;
-}
-
-@media screen and (min-width: 600px) {
-  body {
-    -ms-grid-columns: 30% 1fr;
-        grid-template-columns: 30% 1fr;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  body {
-    -ms-grid-columns: 20% 1fr;
-        grid-template-columns: 20% 1fr;
-  }
-}
-
 .warning {
   background-color: #FFFFFF !important;
   border: 1px solid #B00020 !important;
@@ -777,5 +758,262 @@ body {
 .information table tbody tr:nth-child(even) td {
   color: #6200EE;
   font-weight: 500;
+}
+
+#login {
+  width: 100%;
+  height: 100vh;
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#login .logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 50px;
+}
+
+#login .logo h1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#login .logo img {
+  height: 50px;
+  margin-right: 15px;
+  border-radius: 8px;
+}
+
+#login form {
+  position: relative;
+  padding: 25px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+}
+
+#login form .group {
+  margin-bottom: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #6200EE;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#login form label {
+  margin-bottom: 10px;
+}
+
+#login form input {
+  padding: 8px 16px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 4px;
+  outline: none;
+}
+
+#login form input[type="text"]:focus,
+#login form input[type="password"]:focus {
+  border: 1px solid #6200EE;
+  color: #6200EE;
+}
+
+#login form input[type="submit"] {
+  cursor: pointer;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  background-color: #6200EE;
+}
+
+#login .information {
+  margin-top: 100px;
+}
+
+#login .information ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#login .information ul li {
+  margin: 0 25px;
+}
+
+#login .information ul li a {
+  padding: 9px 18px;
+  background: -webkit-gradient(linear, left top, right top, from(#6200EE), to(#03DAC6));
+  background: linear-gradient(to right, #6200EE, #03DAC6);
+  border-radius: 4px;
+  color: #FFFFFF;
+  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 600px) {
+  #login {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+#login .loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#login .loader.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#login .lds-grid {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+#login .lds-grid div {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  -webkit-animation: lds-grid 1.2s linear infinite;
+          animation: lds-grid 1.2s linear infinite;
+}
+
+#login .lds-grid div:nth-child(1) {
+  top: 8px;
+  left: 8px;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+}
+
+#login .lds-grid div:nth-child(2) {
+  top: 8px;
+  left: 32px;
+  -webkit-animation-delay: -0.4s;
+          animation-delay: -0.4s;
+}
+
+#login .lds-grid div:nth-child(3) {
+  top: 8px;
+  left: 56px;
+  -webkit-animation-delay: -0.8s;
+          animation-delay: -0.8s;
+}
+
+#login .lds-grid div:nth-child(4) {
+  top: 32px;
+  left: 8px;
+  -webkit-animation-delay: -0.4s;
+          animation-delay: -0.4s;
+}
+
+#login .lds-grid div:nth-child(5) {
+  top: 32px;
+  left: 32px;
+  -webkit-animation-delay: -0.8s;
+          animation-delay: -0.8s;
+}
+
+#login .lds-grid div:nth-child(6) {
+  top: 32px;
+  left: 56px;
+  -webkit-animation-delay: -1.2s;
+          animation-delay: -1.2s;
+}
+
+#login .lds-grid div:nth-child(7) {
+  top: 56px;
+  left: 8px;
+  -webkit-animation-delay: -0.8s;
+          animation-delay: -0.8s;
+}
+
+#login .lds-grid div:nth-child(8) {
+  top: 56px;
+  left: 32px;
+  -webkit-animation-delay: -1.2s;
+          animation-delay: -1.2s;
+}
+
+#login .lds-grid div:nth-child(9) {
+  top: 56px;
+  left: 56px;
+  -webkit-animation-delay: -1.6s;
+          animation-delay: -1.6s;
+}
+
+@-webkit-keyframes lds-grid {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes lds-grid {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 /*# sourceMappingURL=main.css.map */

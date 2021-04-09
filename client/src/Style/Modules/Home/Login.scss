@@ -1,0 +1,203 @@
+@import "../../general";
+
+#login {
+
+    width: 100%;
+    height: 100vh;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .logo {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        margin-bottom: 50px;
+
+        h1 {
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        img {
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 8px;
+        }
+
+    }
+
+    form {
+
+        position: relative;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 0 40px rgba($color: #000000, $alpha: 0.05);
+
+        .group {
+            margin-bottom: 25px;
+            display: flex;
+            color: $primary;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 8px 16px;
+            appearance: none;
+            background-color: transparent;
+            border: 1px solid black;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            
+            &:focus {
+                border: 1px solid $primary;
+                color: $primary;
+            }
+
+        }
+
+        input[type="submit"]{
+            cursor: pointer;
+            width: 100%;
+            padding: 12px;
+            border: 0;
+            font-size: 12px;
+            font-weight: bold;
+            color: $background;
+            text-transform: uppercase;
+            background-color: $primary;
+        }
+
+    }
+
+    .information {
+
+        margin-top: 100px;
+
+        ul {
+            display: flex;
+
+            li {
+                margin: 0 25px;
+
+                a {
+                    padding: 9px 18px;
+                    background: linear-gradient(to right, $primary, $secondary);
+                    border-radius: 4px;
+                    color: $background;
+                    box-shadow: 0 3px 3px rgba($color: #000000, $alpha: 0.1);
+                }
+
+            }
+
+        }
+
+    }
+
+    @include sm {
+        display: flex;
+    }
+
+    .loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($color: #000000, $alpha: 0.4);
+        border-radius: 8px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    
+        &.active {
+            display: flex;
+        }
+    
+    }
+    
+    .lds-grid {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    .lds-grid div {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      animation: lds-grid 1.2s linear infinite;
+    }
+    .lds-grid div:nth-child(1) {
+      top: 8px;
+      left: 8px;
+      animation-delay: 0s;
+    }
+    .lds-grid div:nth-child(2) {
+      top: 8px;
+      left: 32px;
+      animation-delay: -0.4s;
+    }
+    .lds-grid div:nth-child(3) {
+      top: 8px;
+      left: 56px;
+      animation-delay: -0.8s;
+    }
+    .lds-grid div:nth-child(4) {
+      top: 32px;
+      left: 8px;
+      animation-delay: -0.4s;
+    }
+    .lds-grid div:nth-child(5) {
+      top: 32px;
+      left: 32px;
+      animation-delay: -0.8s;
+    }
+    .lds-grid div:nth-child(6) {
+      top: 32px;
+      left: 56px;
+      animation-delay: -1.2s;
+    }
+    .lds-grid div:nth-child(7) {
+      top: 56px;
+      left: 8px;
+      animation-delay: -0.8s;
+    }
+    .lds-grid div:nth-child(8) {
+      top: 56px;
+      left: 32px;
+      animation-delay: -1.2s;
+    }
+    .lds-grid div:nth-child(9) {
+      top: 56px;
+      left: 56px;
+      animation-delay: -1.6s;
+    }
+    @keyframes lds-grid {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+}

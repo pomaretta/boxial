@@ -153,7 +153,7 @@ class Tickers extends React.Component {
         console.log("---- MACHINES MODULE ----");
         this.getTickerData()
 
-        this.interval = setInterval(() => {
+        this.interval = setInterval(() => {   
             this.getTickerData()
         },refresh_delay)
 
@@ -166,7 +166,7 @@ class Tickers extends React.Component {
     }
 
     componentWillUnmount(){
-        this.eventSource = null
+        this.eventSource.close()
         this.interval = null
     }
 

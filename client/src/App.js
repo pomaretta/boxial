@@ -14,9 +14,6 @@ function App() {
         <Route path="/setup">
           <User />
         </Route>
-        <Route path="/user">
-          <User />
-        </Route>
         <Route path="/">
           <Home />
         </Route>
