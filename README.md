@@ -1,6 +1,15 @@
-<p style="display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: bold">
-    Boxial Dashboard
-    <img src="readme/boxial.png" style="width: 80px; margin-left: 25px; border-radius: 8px" />
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/github_username/repo_name">
+    <img src="readme/boxial.png" alt="Logo" width="90" height="90">
+  </a>
+    <h3 align="center"><b><font size="56">Boxial</font></b></h3>
+  <p align="center">
+    <br />
+  </p>
+    <hr />
+    <br />
 </p>
 
 A virtual machine dashboard manager using React, Express and NodeJS
