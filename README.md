@@ -60,3 +60,14 @@ You can view the app at `localhost:3000`. Log in with `admin` user and  password
 ### Production build
 
 Run `npm run build` on `client` and `server`.
+
+## Todos
+
+- [ ] Let choose the stop option, actually only save state.
+- [ ] Client SQL database to store client preferences and users
+- [ ] API Key auth on server
+- [ ] User panel where change name or password
+- [ ] Allow server selectión on page
+- [ ] Connection tester to test connection before trying to use
+- [ ] Storage Usage, show all disk usage
+- [ ] Network view, allow to view all interfaces
