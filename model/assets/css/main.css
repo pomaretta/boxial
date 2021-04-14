@@ -19,6 +19,17 @@ body {
   font-family: "Inter", sans-serif;
   height: 100vh;
   width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20% 1fr;
+      grid-template-columns: 20% 1fr;
+}
+
+@media screen and (min-width: 800px) {
+  body {
+    -ms-grid-columns: 15% 1fr;
+        grid-template-columns: 15% 1fr;
+  }
 }
 
 ul {
@@ -357,6 +368,7 @@ img {
 
 #page main #content {
   width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -571,6 +583,111 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+#page main #content .machine .row--lower .controls .column--left {
+  position: relative;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler {
+  cursor: pointer;
+  position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 60%;
+  border: 0;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid #6200EE;
+  color: #6200EE;
+  background-color: transparent;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler:hover {
+  background-color: #6200EE;
+  color: #FFFFFF;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .icon {
+  fill: #6200EE;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .dropdown {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: #000000;
+  top: 35px;
+  left: 0;
+  width: 100%;
+  border: 0;
+  border: 1px solid #6200EE;
+  border-radius: 4px !important;
+  background-color: #fff;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .dropdown li {
+  border-radius: 4px;
+  background: #fff;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  margin: 0;
+  padding: 10px;
+  height: auto;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: none !important;
+  border-bottom: 1px solid #6200EE !important;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .dropdown li:last-child {
+  border: 0 !important;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .dropdown li a {
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border: 0;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .dropdown li a:visited {
+  color: inherit;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .dropdown li a:hover {
+  background-color: unset;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .dropdown li.active {
+  background-color: #6200EE;
+  color: #FFFFFF;
+  border-radius: 0px;
+}
+
+#page main #content .machine .row--lower .controls .column--left .toggler .dropdown.collapse {
+  display: none;
 }
 
 #page main #content .machine .row--lower .controls .column--right {

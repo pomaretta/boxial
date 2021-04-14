@@ -68,6 +68,14 @@ body {
   font-family: $font;
   height: 100vh;
   width: 100%;
+
+  display: grid;
+  grid-template-columns: 20% 1fr;
+
+  @include md {
+      grid-template-columns: 15% 1fr;
+  }
+
 }
 
 ul {
@@ -394,6 +402,7 @@ img {
         #content {
             
             width: 100%;
+            height: 100%;
             display: flex;  
             flex-direction: column;
             align-items: flex-start;
@@ -573,6 +582,104 @@ img {
                         .column {
                             width: 50%;
                             display: flex;
+                        }
+
+                        .column--left {
+                            
+                            position: relative;
+                            
+                            .toggler {
+                                
+                                cursor: pointer;
+                                position: relative;
+                                appearance: none;
+                                width: 60%;
+                                border: 0;
+                                outline: none;
+                                border-radius: 4px;
+                                border: 1px solid $primary;
+                                color: $primary;
+                                background-color: transparent;
+
+                                &:hover {
+                                    background-color: $primary;
+                                    color: $background;
+                                }
+
+                                .icon {
+                                    fill: $primary;
+                                }
+
+                                .dropdown {
+
+                                    position: absolute;
+    
+                                    display: flex;
+                                    align-items: flex-start;
+                                    justify-content: center;
+                                    flex-direction: column;
+                                    color: $on-background;
+
+                                    top: 35px;
+                                    left: 0;
+                                    width: 100%;
+                                    border: 0;
+                                    border: 1px solid $primary;
+                                    border-radius: 4px !important;
+                                    background-color: #fff;
+
+                                    li {
+                                        border-radius: 4px;
+                                        background: #fff;
+                                        box-shadow: none;
+                                        margin: 0;
+                                        padding: 10px;
+                                        height: auto;
+                                        width: 100%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        border: none !important;
+                                        border-bottom: 1px solid $primary !important;
+
+                                        &:last-child {
+                                            border: 0 !important;
+                                        }
+
+                                        a {
+                                            color: inherit;
+                                            padding: 0;
+                                            margin: 0;
+                                            border: 0;
+                                            border: 0;
+                                            // font-size: 14px;
+
+                                            &:visited {
+                                                color: inherit;
+                                            }
+
+                                            &:hover {
+                                                background-color: unset;
+                                            }
+
+                                        }
+
+                                        &.active {
+                                            background-color: $primary;
+                                            color: $background;
+                                            border-radius: 0px;
+                                        }
+
+                                    }
+    
+                                    &.collapse {
+                                        display: none;
+                                    }
+    
+                                }
+
+                            }
+
                         }
 
                         .column--right {

@@ -135,6 +135,106 @@
                 display: flex;
             }
 
+            .column--left {
+                            
+                position: relative;
+                
+                .toggler {
+
+                  padding: 6px 10px;
+                    cursor: pointer;
+                    position: relative;
+                    appearance: none;
+                    width: 60%;
+                    border: 0;
+                    outline: none;
+                    border-radius: 4px;
+                    border: 1px solid $primary;
+                    color: $primary;
+                    background-color: transparent;
+
+                    &:hover {
+                        background-color: $primary;
+                        color: $background;
+                    }
+
+                    .icon {
+                        margin-left: 5px;
+                        fill: $primary;
+                    }
+
+                    .dropdown {
+
+                        position: absolute;
+
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: center;
+                        flex-direction: column;
+                        color: $on-background;
+
+                        top: 35px;
+                        left: 0;
+                        width: 100%;
+                        border: 0;
+                        border: 1px solid $primary;
+                        border-radius: 4px !important;
+                        background-color: #fff;
+
+                        li {
+                            border-radius: 0px;
+                            background: #fff;
+                            box-shadow: none;
+                            margin: 0;
+                            padding: 10px;
+                            height: auto;
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: none !important;
+                            border-bottom: 1px solid $primary !important;
+
+                            &:last-child {
+                                border: 0 !important;
+                            }
+
+                            a {
+                                color: inherit;
+                                padding: 0;
+                                margin: 0;
+                                border: 0;
+                                border: 0;
+                                // font-size: 14px;
+
+                                &:visited {
+                                    color: inherit;
+                                }
+
+                                &:hover {
+                                    background-color: unset;
+                                }
+
+                            }
+
+                            &:hover {
+                                background-color: $primary;
+                                color: $background;
+                                // border-radius: 0px;
+                            }
+
+                        }
+
+                        &.collapse {
+                            display: none;
+                        }
+
+                    }
+
+                }
+
+            }
+
             .column--right {
                 justify-content: flex-end;
             }
@@ -158,6 +258,7 @@
     display: none;
     align-items: center;
     justify-content: center;
+    z-index: 50;
 
     &.active {
         display: flex;

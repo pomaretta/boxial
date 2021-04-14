@@ -1,9 +1,69 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown, faPowerOff } from '@fortawesome/free-solid-svg-icons'
 import "../../../Style/Modules/Home/Content/Machines.scss"
 
 import _ from 'lodash'
 import { refresh_delay, realtimeURL, connection } from './Machines.helper.js'
 import axios from 'axios'
+
+class StopOption extends React.Component {
+
+    constructor(props){
+        super(props)
+
+        this.state = {
+            option: true,
+            active: false
+        }
+
+        this.changeOption = this.changeOption.bind(this)
+        this.toggle = this.toggle.bind(this)
+
+    }
+
+    changeOption = (props) => {
+        switch (props){
+            case "stop":
+                this.setState({
+                    option: true,
+                    active: false
+                })
+                break
+            case "poweroff":
+                this.setState({
+                    option: false,
+                    active: false
+                })
+                break
+        }
+        
+    }
+
+    toggle = () => {
+        this.setState({
+            active: !this.state.active
+        })
+    }
+
+    render(){
+        return(
+            <button className="toggler warning" onClick={this.toggle}>
+                <FontAwesomeIcon icon={faPowerOff} />
+                <FontAwesomeIcon icon={faCaretDown} className="icon" />
+                <ul className={["dropdown", this.state.active ? "" : "collapse"].join(" ")}>
+                    <li onClick={() => {this.changeOption("stop");this.props.onClick(true)}}>
+                        <a>Stop</a>
+                    </li>
+                    <li onClick={() => {this.changeOption("poweroff");this.props.onClick(false)}}>
+                        <a>Poweroff</a>
+                    </li>
+                </ul>
+            </button>
+        )
+    }
+
+}
 
 class Machine extends React.Component {
     constructor(props){
@@ -17,6 +77,7 @@ class Machine extends React.Component {
 
         this.chooseSystem = this.chooseSystem.bind(this)
         this.executeUpdate = this.executeUpdate.bind(this)
+        this.executeStop = this.executeStop.bind(this)
 
     }
 
@@ -32,7 +93,7 @@ class Machine extends React.Component {
         }
     }
 
-    executeUpdate(){
+    executeUpdate(flag){
 
         this.setState({
             tickState: !this.props.state,
@@ -40,11 +101,19 @@ class Machine extends React.Component {
         })
 
         if(this.props.state){
-            this.props.stop()
+            this.executeStop(flag)
         } else {
             this.props.run()
         }
 
+    }
+
+    executeStop(flag){
+        if(flag){
+            this.props.stop()
+        } else {
+            this.props.powerOff()
+        }
     }
 
     componentDidUpdate(){
@@ -92,11 +161,12 @@ class Machine extends React.Component {
                     </div>
                     <div className="group controls">
                         <div className="column column--left">
-                            <a onClick={this.executeUpdate} className={this.props.state ? "warning" : ""} >{
+                            {
                                 this.props.state
-                                ? "Save State"
-                                : "Start" 
-                            }</a>
+                                ? <StopOption onClick={this.executeUpdate}  />
+                                : <a onClick={() => this.executeUpdate(false)} className={this.props.state ? "warning" : ""} >Start</a>
+                            }
+                            
                         </div>
                         <div className="column column--right">
                             {/* <a href="#" className="warning">Delete</a> */}
@@ -204,6 +274,7 @@ class Tickers extends React.Component {
                             use="To implement"
                             run={() => {this.props.start(machine.vm)}}
                             stop={() => {this.props.stop(machine.vm)}}
+                            powerOff={() => {this.props.powerOff(machine.vm)}}
                         />
                     })
                 }
@@ -220,6 +291,7 @@ class Machines extends React.Component {
 
         this.startMachine = this.startMachine.bind(this)
         this.stopMachine = this.stopMachine.bind(this)
+        this.powerOffMachine = this.powerOffMachine.bind(this)
 
     }
 
@@ -241,6 +313,15 @@ class Machines extends React.Component {
         return result
     }
 
+    powerOffMachine(machine){
+        let result = false;
+        axios.get(`http://localhost:8000/api/machines/${machine}/poweroff`)
+        .then(
+            result = true
+        )
+        return result
+    }
+
     render(){
         return (
             <div className="module" id="machines">
@@ -255,7 +336,7 @@ class Machines extends React.Component {
                     <div className="column column--right">
                     </div>
                 </div>
-                <Tickers start={this.startMachine} stop={this.stopMachine} />
+                <Tickers start={this.startMachine} stop={this.stopMachine} powerOff={this.powerOffMachine} />
             </div>
         )
     }
