@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+    server:
+        image: boxial:client-server
+        container: boxial-client-server
+        networks:
+            - frontend
+        build: 
+            context: src/server
+            dockerfile: config/Dockerfile.server
+    frontend:
+        image: boxial:client-frontend
+        container: boxial-client-frontend
+        networks:
+            - frontend
+        build: 
+            context: src/frontend
+            dockerfile: config/Dockerfile.frontend
+    backend:
+        image: boxial:client-backend
+        container: boxial-client-backend
+        networks:
+            - frontend
+            - backend
+        build: 
+            context: src/backend
+            dockerfile: config/Dockerfile.backend
+    database:
+        image: mariadb:10.2
+        environment:
+            MYSQL_ROOT_PASSWORD: none
+            MYSQL_DATABASE: none
+            MYSQL_USER: none
+            MYSQL_PASSWORD: none
+        networks: 
+            - backend
+        restart: on-failure
+        volumes: 
+            - ${PWD}/mariadb:/var/lib/mysql        
+
+networks:
+    frontend:
+        driver: bridge         
+    backend:
+        driver: bridge
