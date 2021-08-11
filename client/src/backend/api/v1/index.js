@@ -18,8 +18,18 @@ import { Router } from 'express'
 const api = Router()
 
 // Test entrypoint
-api.get('/test', (req, res) => {
+api.get('/', (req, res) => {
     res.sendStatus(200)
 })
+
+// SIGNIN Routes
+
+import sigin from './signin/index.js'
+api.use('/signin', sigin)
+
+// SIGNUP Routes
+
+import signup from './signup/index.js'
+api.use('/signup', signup)
 
 export default api
