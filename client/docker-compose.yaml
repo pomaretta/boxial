@@ -6,7 +6,7 @@ services:
         container: boxial-client-server
         networks:
             - frontend
-        build: 
+        build:
             context: src/server
             dockerfile: config/Dockerfile.server
     frontend:
@@ -26,18 +26,21 @@ services:
         build: 
             context: src/backend
             dockerfile: config/Dockerfile.backend
-    database:
-        image: mariadb:10.2
+        ports: 
+            - "6001:3000"
         environment:
-            MYSQL_ROOT_PASSWORD: none
-            MYSQL_DATABASE: none
-            MYSQL_USER: none
-            MYSQL_PASSWORD: none
-        networks: 
+            - NODE_PORT=3000
+    database:
+        image: mongo
+        container: boxial-client-database
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: none
+            MONGO_INITDB_ROOT_PASSWORD: none
+        networks:
             - backend
         restart: on-failure
-        volumes: 
-            - ${PWD}/mariadb:/var/lib/mysql        
+        volumes:
+            - ${PWD}/mongo:/data/db        
 
 networks:
     frontend:

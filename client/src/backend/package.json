@@ -6,15 +6,18 @@
   "type": "module",
   "scripts": {
     "start": "node .",
+    "start:dev": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Carlos Pomares",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "helmet": "^4.6.0"
+    "helmet": "^4.6.0",
+    "mongodb": "^4.1.0"
   },
   "devDependencies": {
     "jest": "^27.0.6",
