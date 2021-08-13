@@ -30,17 +30,19 @@ services:
             - "6001:3000"
         environment:
             - NODE_PORT=3000
+            - MYSQL_NAME=boxial
     database:
-        image: mongo
+        image: mariadb
         container: boxial-client-database
         environment:
-            MONGO_INITDB_ROOT_USERNAME: none
-            MONGO_INITDB_ROOT_PASSWORD: none
+            - MYSQL_ROOT_PASSWORD=none
+            - MYSQL_DATABASE=boxial
         networks:
             - backend
         restart: on-failure
         volumes:
-            - ${PWD}/mongo:/data/db        
+            - ${PWD}/data:/data/db      
+            - ${PWD}/src/database:/docker-entrypoint-initdb.d
 
 networks:
     frontend:

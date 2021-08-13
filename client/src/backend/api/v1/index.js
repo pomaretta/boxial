@@ -32,4 +32,9 @@ api.use('/signin', sigin)
 import signup from './signup/index.js'
 api.use('/signup', signup)
 
+// AUTH Routes
+
+import auth from './signup/index.js'
+api.use('/auth', auth)
+
 export default api
