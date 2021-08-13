@@ -3,40 +3,56 @@ version: "3.8"
 services:
     server:
         image: boxial:client-server
-        container: boxial-client-server
+        container_name: boxial-client-server
         networks:
             - frontend
         build:
             context: src/server
-            dockerfile: config/Dockerfile.server
+            dockerfile: ../../config/Dockerfile.server
+        ports: 
+            - "3001:80"
+        depends_on: 
+            - frontend
     frontend:
         image: boxial:client-frontend
-        container: boxial-client-frontend
+        container_name: boxial-client-frontend
         networks:
             - frontend
         build: 
             context: src/frontend
-            dockerfile: config/Dockerfile.frontend
+            dockerfile: ../../config/Dockerfile.frontend
+        ports: 
+            - "3002:3000"
+        depends_on: 
+            - backend
     backend:
         image: boxial:client-backend
-        container: boxial-client-backend
+        container_name: boxial-client-backend
         networks:
             - frontend
             - backend
         build: 
             context: src/backend
-            dockerfile: config/Dockerfile.backend
+            dockerfile: ../../config/Dockerfile.backend
         ports: 
-            - "6001:3000"
+            - "3003:3000"
         environment:
             - NODE_PORT=3000
-            - MYSQL_NAME=boxial
+            - MYSQL_DATABASE=boxial
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=none
+            - MYSQL_PORT=3004
+            - MYSQL_HOST=boxial-client-database
+        depends_on: 
+            - database
     database:
         image: mariadb
-        container: boxial-client-database
+        container_name: boxial-client-database
         environment:
             - MYSQL_ROOT_PASSWORD=none
             - MYSQL_DATABASE=boxial
+        ports: 
+            - "3004:3306"
         networks:
             - backend
         restart: on-failure
